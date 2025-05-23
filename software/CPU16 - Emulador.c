@@ -2,12 +2,14 @@
     At argv[1] should be the name of input text with assembly code.
 
     Emulator flow:
-        Run -> Load input in memory -> Search -> Decode -> Execute |
+        Run -> Load input in memory -> Fetch -> Decode -> Execute |
                                            |-----------------------|
+
+    Each word have 1 byte, and MBR have 24 bits. Its necessary three cycle
+    of fetch in memory to load the MBR.
 */
 
 #include <stdio.h>
-#include <stdlib.h>
 
 int main(int argc, char const *argv[]) {
   if (argc == 1 || argc > 2) {
@@ -58,123 +60,127 @@ int main(int argc, char const *argv[]) {
 
   while (1) {
   L_hlt:
-    break;
+
+    goto L_continue;
 
   L_nop:
     // Implement NOP operation here
-    break;
+    goto L_continue;
 
   L_add:
     // Implement ADD operation here
-    break;
+    goto L_continue;
 
   L_sub:
     // Implement SUB operation here
-    break;
+    goto L_continue;
 
   L_mul:
     // Implement MUL operation here
-    break;
+    goto L_continue;
 
   L_div:
     // Implement DIV operation here
-    break;
+    goto L_continue;
 
   L_cmp:
     // Implement CMP operation here
-    break;
+    goto L_continue;
 
   L_movr:
     // Implement MOVR operation here
-    break;
+    goto L_continue;
 
   L_and:
     // Implement AND operation here
-    break;
+    goto L_continue;
 
   L_or:
     // Implement OR operation here
-    break;
+    goto L_continue;
 
   L_xor:
     // Implement XOR operation here
-    break;
+    goto L_continue;
 
   L_not:
     // Implement NOT operation here
-    break;
+    goto L_continue;
 
   L_je:
     // Implement JE operation here
-    break;
+    goto L_continue;
 
   L_jne:
     // Implement JNE operation here
-    break;
+    goto L_continue;
 
   L_jl:
     // Implement JL operation here
-    break;
+    goto L_continue;
 
   L_jle:
     // Implement JLE operation here
-    break;
+    goto L_continue;
 
   L_jg:
     // Implement JG operation here
-    break;
+    goto L_continue;
 
   L_jge:
     // Implement JGE operation here
-    break;
+    goto L_continue;
 
   L_jmp:
     // Implement JMP operation here
-    break;
+    goto L_continue;
 
   L_ld:
     // Implement LD operation here
-    break;
+    goto L_continue;
 
   L_st:
     // Implement ST operation here
-    break;
+    goto L_continue;
 
   L_ldr:
     // Implement LDR operation here
-    break;
+    goto L_continue;
 
   L_str:
     // Implement STR operation here
-    break;
+    goto L_continue;
 
   L_movi:
     // Implement MOVI operation here
-    break;
+    goto L_continue;
 
   L_addi:
     // Implement ADDI operation here
-    break;
+    goto L_continue;
 
   L_subi:
     // Implement SUBI operation here
-    break;
+    goto L_continue;
 
   L_muli:
     // Implement MULI operation here
-    break;
+    goto L_continue;
 
   L_divi:
     // Implement DIVI operation here
-    break;
+    goto L_continue;
 
   L_lsh:
     // Implement LSH operation here
-    break;
+    goto L_continue;
 
   L_rsh:
     // Implement RSH operation here
-    break;
+
+
+    L_continue:
+        continue;
   }
 
   return 0;

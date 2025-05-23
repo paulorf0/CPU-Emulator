@@ -3,8 +3,8 @@
 #ifndef ASSEMBLY_H
 #define ASSEMBLY_H
 
-#include "handlers\handlers.h"
-#include "hardware.h"
+#include "../handlers/handlers.h"
+#include "../hardware/hardware.h"
 // Defining Instructions //
 // The OPCODE have 5 bits.
 enum OPCODE : uint8_t {
@@ -49,6 +49,16 @@ enum OPCODE : uint8_t {
 };
 // Defining Instructions //
 
+// Defining Regs //
+enum GR : uint8_t {
+	R0 = 0b00,
+	R1 = 0b01,
+	R2 = 0b10,
+	R3 = 0b11
+};
+// Defining Regs //
+
+
 // Assembly Instructions //
 typedef void (*InstructionHandler)(CPU *);
 
@@ -62,7 +72,7 @@ typedef struct {
   InstructionHandler handler;
 } INSTRUCTION;
 
-INSTRUCTION instr_table[] = {
+static const INSTRUCTION instr_table[] = {
     {HLT, handle_HLT}, // HALT
     {NOP, handle_NOP}, // NO OPERATION
 
@@ -102,5 +112,4 @@ INSTRUCTION instr_table[] = {
     {RSH, handle_RSH}  // RIGHT SHIFT
 };
 // Assembly Instructions //
-
 #endif

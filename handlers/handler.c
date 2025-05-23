@@ -1,12 +1,62 @@
 #include "handlers.h"
 
 void handle_HLT(CPU *cpu) { return; }  // HALT
-void handle_NOP(CPU *cpu) { return; }  // NO OPERATION
-void handle_ADD(CPU *cpu) { return; }  // ADD REGISTER
-void handle_SUB(CPU *cpu) { return; }  // SUBTRACT REGISTER
-void handle_MUL(CPU *cpu) { return; }  // MULTIPLY REGISTER
-void handle_DIV(CPU *cpu) { return; }  // DIVIDE REGISTER
-void handle_CMP(CPU *cpu) { return; }  // COMPARE REGISTER
+void handle_NOP(CPU *cpu) {  // NO OPERATION
+	cpu->reg.PC ++;
+	return;
+}
+
+// The instruction was in
+void handle_ADD(CPU *cpu) {
+	uint8_t addr1 = cpu->reg.RO0;
+	uint8_t addr2 = cpu->reg.RO1;
+
+	cpu->reg.GPR[addr1] = cpu->reg.GPR[addr1] + cpu->reg.GPR[addr2];
+	return;
+}  // ADD REGISTER
+void handle_SUB(CPU *cpu) {
+	uint8_t addr1 = cpu->reg.RO0;
+	uint8_t addr2 = cpu->reg.RO1;
+
+	cpu->reg.GPR[addr1] = cpu->reg.GPR[addr1] - cpu->reg.GPR[addr2];
+
+	return;
+}  // SUBTRACT REGISTER
+void handle_MUL(CPU *cpu) {
+	// How to manage overflow?
+	uint8_t addr1 = cpu->reg.RO0;
+	uint8_t addr2 = cpu->reg.RO1;
+
+	cpu->reg.GPR[addr1] = cpu->reg.GPR[addr1] * cpu->reg.GPR[addr2];
+
+	return; }  // MULTIPLY REGISTER
+void handle_DIV(CPU *cpu) {
+	uint8_t addr1 = cpu->reg.RO0;
+	uint8_t addr2 = cpu->reg.RO1;
+
+	cpu->reg.GPR[addr1] = cpu->reg.GPR[addr1] / cpu->reg.GPR[addr2];
+
+	return; }  // DIVIDE REGISTER
+void handle_CMP(CPU *cpu) {
+	uint8_t addr1 = cpu->reg.RO0;
+	uint8_t addr2 = cpu->reg.RO1;
+
+
+	cpu->reg.E = 0;
+	cpu->reg.L = 0;
+	cpu->reg.G = 0;
+
+	if(cpu->reg.GPR[addr1] < cpu->reg.GPR[addr2])
+		cpu->reg.L = 1;
+
+	if(cpu->reg.GPR[addr1] > cpu->reg.GPR[addr2])
+		cpu->reg.G = 1;
+
+	if(cpu->reg.GPR[addr1] == cpu->reg.GPR[addr2])
+		cpu->reg.E = 1;
+
+	return;
+}  // COMPARE REGISTER
 void handle_MOVR(CPU *cpu) { return; } // MOVE REGISTER
 void handle_AND(CPU *cpu) { return; }  // LOGICAL-AND ON REGISTER
 void handle_OR(CPU *cpu) { return; }   // LOGICAL-OR ON REGISTER

@@ -2,7 +2,7 @@
 #ifndef HANDLERS_H
 #define HANDLERS_H
 
-#include "hardware.h"
+#include "../hardware/hardware.h"
 
 extern void handle_HLT(CPU *); // HALT
 extern void handle_NOP(CPU *); // NO OPERATION
