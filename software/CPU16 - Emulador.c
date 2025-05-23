@@ -18,7 +18,7 @@ int main(int argc, char const *argv[]) {
     return 1;
   }
 
-  static void *jump_table[] = {
+  void *jump_table[] = {
       &&L_hlt, // 0x00 HLT
       &&L_nop, // 0x01 NOP
 
