@@ -1,5 +1,6 @@
 
 #pragma once
+#include <cstdint>
 #ifndef ASSEMBLY_H
 #define ASSEMBLY_H
 
@@ -47,6 +48,50 @@ enum OPCODE : uint8_t {
   RSH = 0b11101, // RIGHT SHIFT
 
 };
+
+// Instruction Size by bytes.
+static constexpr uint8_t instruction_size[] = {
+  /* HLT  */ 1,
+  /* NOP  */ 1,
+
+  /* ADD  */ 2,
+  /* SUB  */ 2,
+  /* MUL  */ 2,
+  /* DIV  */ 2,
+  /* CMP  */ 2,
+  /* MOVR */ 2,
+
+  /* AND  */ 2,
+  /* OR   */ 2,
+  /* XOR  */ 2,
+  /* NOT  */ 1,
+
+  /* JE   */ 3,
+  /* JNE  */ 3,
+  /* JL   */ 3,
+  /* JLE  */ 3,
+  /* JG   */ 3,
+  /* JGE  */ 3,
+  /* JMP  */ 3,
+
+  /* LD   */ 3,
+  /* ST   */ 3,
+
+  /* LDR  */ 2,
+  /* STR  */ 2,
+
+  /* MOVI */ 3,
+  /* ADDI */ 3,
+  /* SUBI */ 3,
+  /* MULI */ 3,
+  /* DIVI */ 3,
+
+  /* LSH  */ 3,
+  /* RSH  */ 3
+};
+inline uint8_t get_instruction_size(OPCODE op) {
+    return instruction_size[static_cast<int>(op)];
+}
 // Defining Instructions //
 
 // Defining Regs //
