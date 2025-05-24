@@ -51,58 +51,51 @@ enum OPCODE : uint8_t {
 
 // Instruction Size by bytes.
 static constexpr uint8_t instruction_size[] = {
-  /* HLT  */ 1,
-  /* NOP  */ 1,
+    /* HLT  */ 1,
+    /* NOP  */ 1,
 
-  /* ADD  */ 2,
-  /* SUB  */ 2,
-  /* MUL  */ 2,
-  /* DIV  */ 2,
-  /* CMP  */ 2,
-  /* MOVR */ 2,
+    /* ADD  */ 2,
+    /* SUB  */ 2,
+    /* MUL  */ 2,
+    /* DIV  */ 2,
+    /* CMP  */ 2,
+    /* MOVR */ 2,
 
-  /* AND  */ 2,
-  /* OR   */ 2,
-  /* XOR  */ 2,
-  /* NOT  */ 1,
+    /* AND  */ 2,
+    /* OR   */ 2,
+    /* XOR  */ 2,
+    /* NOT  */ 1,
 
-  /* JE   */ 3,
-  /* JNE  */ 3,
-  /* JL   */ 3,
-  /* JLE  */ 3,
-  /* JG   */ 3,
-  /* JGE  */ 3,
-  /* JMP  */ 3,
+    /* JE   */ 3,
+    /* JNE  */ 3,
+    /* JL   */ 3,
+    /* JLE  */ 3,
+    /* JG   */ 3,
+    /* JGE  */ 3,
+    /* JMP  */ 3,
 
-  /* LD   */ 3,
-  /* ST   */ 3,
+    /* LD   */ 3,
+    /* ST   */ 3,
 
-  /* LDR  */ 2,
-  /* STR  */ 2,
+    /* LDR  */ 2,
+    /* STR  */ 2,
 
-  /* MOVI */ 3,
-  /* ADDI */ 3,
-  /* SUBI */ 3,
-  /* MULI */ 3,
-  /* DIVI */ 3,
+    /* MOVI */ 3,
+    /* ADDI */ 3,
+    /* SUBI */ 3,
+    /* MULI */ 3,
+    /* DIVI */ 3,
 
-  /* LSH  */ 3,
-  /* RSH  */ 3
-};
+    /* LSH  */ 3,
+    /* RSH  */ 3};
 inline uint8_t get_instruction_size(OPCODE op) {
-    return instruction_size[static_cast<int>(op)];
+  return instruction_size[static_cast<int>(op)];
 }
 // Defining Instructions //
 
 // Defining Regs //
-enum GR : uint8_t {
-	R0 = 0b00,
-	R1 = 0b01,
-	R2 = 0b10,
-	R3 = 0b11
-};
+enum GR : uint8_t { R0 = 0b00, R1 = 0b01, R2 = 0b10, R3 = 0b11 };
 // Defining Regs //
-
 
 // Assembly Instructions //
 typedef void (*InstructionHandler)(CPU *);
@@ -112,49 +105,44 @@ static inline OPCODE OPCODE5(uint32_t word) {
   return (OPCODE)((word >> 27) & 0x1F);
 }
 
-typedef struct {
-  OPCODE opcode;
-  InstructionHandler handler;
-} INSTRUCTION;
+static const InstructionHandler instr_table[] = {
+    handle_HLT, // HALT
+    handle_NOP, // NO OPERATION
 
-static const INSTRUCTION instr_table[] = {
-    {HLT, handle_HLT}, // HALT
-    {NOP, handle_NOP}, // NO OPERATION
+    handle_ADD,  // ADD REGISTER
+    handle_SUB,  // SUBTRACT REGISTER
+    handle_MUL,  // MULTIPLY REGISTER
+    handle_DIV,  // DIVIDE REGISTER
+    handle_CMP,  // COMPARE REGISTER
+    handle_MOVR, // MOVE REGISTER
 
-    {ADD, handle_ADD},   // ADD REGISTER
-    {SUB, handle_SUB},   // SUBTRACT REGISTER
-    {MUL, handle_MUL},   // MULTIPLY REGISTER
-    {DIV, handle_DIV},   // DIVIDE REGISTER
-    {CMP, handle_CMP},   // COMPARE REGISTER
-    {MOVR, handle_MOVR}, // MOVE REGISTER
+    handle_AND, // LOGICAL-AND ON REGISTER
+    handle_OR,  // LOGICAL-OR ON REGISTER
+    handle_XOR, // LOGICAL-XOR ON REGISTER
+    handle_NOT, // LOGICAL-NOT ON REGISTER
 
-    {AND, handle_AND}, // LOGICAL-AND ON REGISTER
-    {OR, handle_OR},   // LOGICAL-OR ON REGISTER
-    {XOR, handle_XOR}, // LOGICAL-XOR ON REGISTER
-    {NOT, handle_NOT}, // LOGICAL-NOT ON REGISTER
+    handle_JE,  // JUMP IF EQUAL TO
+    handle_JNE, // JUMP IF NOT EQUAL TO
+    handle_JL,  // JUMP IF LOWER THAN
+    handle_JLE, // JUMP IF LOWER OR EQUAL
+    handle_JG,  // JUMP IF GREATER THAN
+    handle_JGE, // JUMP IF GREATER OR EQUAL
+    handle_JMP, // JUMP
 
-    {JE, handle_JE},   // JUMP IF EQUAL TO
-    {JNE, handle_JNE}, // JUMP IF NOT EQUAL TO
-    {JL, handle_JL},   // JUMP IF LOWER THAN
-    {JLE, handle_JLE}, // JUMP IF LOWER OR EQUAL
-    {JG, handle_JG},   // JUMP IF GREATER THAN
-    {JGE, handle_JGE}, // JUMP IF GREATER OR EQUAL
-    {JMP, handle_JMP}, // JUMP
+    handle_LD, // LOAD
+    handle_ST, // STORE
 
-    {LD, handle_LD}, // LOAD
-    {ST, handle_ST}, // STORE
+    handle_LDR, // LOAD VIA REGISTER
+    handle_STR, // STORE VIA REGISTER
 
-    {LDR, handle_LDR}, // LOAD VIA REGISTER
-    {STR, handle_STR}, // STORE VIA REGISTER
+    handle_MOVI, // MOVE IMMEDIATE
+    handle_ADDI, // ADD IMMEDIATE
+    handle_SUBI, // SUBTRACT IMMEDIATE
+    handle_MULI, // MULTIPLY IMMEDIATE
+    handle_DIVI, // DIVIDE IMMEDIATE
 
-    {MOVI, handle_MOVI}, // MOVE IMMEDIATE
-    {ADDI, handle_ADDI}, // ADD IMMEDIATE
-    {SUBI, handle_SUBI}, // SUBTRACT IMMEDIATE
-    {MULI, handle_MULI}, // MULTIPLY IMMEDIATE
-    {DIVI, handle_DIVI}, // DIVIDE IMMEDIATE
-
-    {LSH, handle_LSH}, // LEFT SHIFT
-    {RSH, handle_RSH}  // RIGHT SHIFT
+    handle_LSH, // LEFT SHIFT
+    handle_RSH, // RIGHT SHIFT
 };
 // Assembly Instructions //
 #endif
