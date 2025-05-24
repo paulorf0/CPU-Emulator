@@ -4,6 +4,7 @@
 
 #include "../assembly/assembly.h"
 #include "../hardware/hardware.h"
+#include "../assembly/instruction_code.h"
 
 static inline void fetch(CPU *cpu) {
   cpu->reg.MAR = cpu->reg.PC;
