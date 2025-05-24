@@ -1,9 +1,10 @@
-#include "handlers.h"
+#include "../include/instructions.h"
+
 void handle_HLT(CPU *cpu) {
-    cpu->terminate_flag = 1;
-    return;
+  cpu->terminate_flag = 1;
+  return;
 } // HALT
-void handle_NOP(CPU *cpu) {           // NO OPERATION
+void handle_NOP(CPU *cpu) { // NO OPERATION
   uint8_t size = get_instruction_size(cpu->reg.IR);
   cpu->reg.PC += size;
   return;

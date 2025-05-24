@@ -2,8 +2,8 @@
 #ifndef ASSEMBLY_H
 #define ASSEMBLY_H
 
-#include "../handlers/handlers.h"
-#include "../hardware/hardware.h"
+#include "instructions.h"
+#include "hardware.h"
 #include <stdint.h>
 
 // Defining Regs //

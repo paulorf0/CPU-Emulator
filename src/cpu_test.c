@@ -1,6 +1,6 @@
-#include "../hardware/hardware.h"
-#include "../terminal/terminal.h"
-#include "cycle.h"
+#include "../include/hardware.h"
+#include "../include/terminal_io.h"
+#include "../include/cycle.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>

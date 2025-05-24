@@ -2,8 +2,8 @@
 #ifndef HANDLERS_H
 #define HANDLERS_H
 
-#include "../hardware/hardware.h"
-#include "../assembly/instruction_code.h"
+#include "hardware.h"
+#include "instruction_set.h"
 
 void handle_HLT(CPU *cpu);
 void handle_NOP(CPU *cpu);

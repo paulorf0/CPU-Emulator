@@ -2,10 +2,10 @@
 #ifndef FETCH_H
 #define FETCH_H
 
-#include "../assembly/assembly.h"
-#include "../assembly/instruction_code.h"
-#include "../hardware/hardware.h"
-#include "../terminal/terminal.h"
+#include "assembler.h"
+#include "hardware.h"
+#include "instruction_set.h"
+#include "terminal_io.h"
 
 static inline void fetch(CPU *cpu) {
   cpu->reg.MAR = cpu->reg.PC;

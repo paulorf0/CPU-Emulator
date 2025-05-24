@@ -2,7 +2,7 @@
 #ifndef TERMINAL_H
 #define TERMINAL_H
 
-#include "../hardware/hardware.h"
+#include "hardware.h"
 #include <stdio.h>
 
 static inline void print_register(CPU *cpu) {

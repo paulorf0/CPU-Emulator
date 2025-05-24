@@ -1,4 +1,12 @@
 
+Program:
+0x00–0x02: MOVI R0, 5       (3 bytes)
+0x03–0x05: MOVI R1, 3       (3 bytes)
+0x06–0x07: ADD  R0, R1      (2 bytes)
+0x08     : HLT              (1 byte)
+
+
+
 ------------- Memory -------------
 0000: B8
 0001: 00
@@ -106,3 +114,6 @@ RO1 : 0x01	E   : 0x00	L   : 0x00
 G   : 0x00	GPR0: 0x0008	GPR1: 0x0003
 GPR2: 0x0000	GPR3: 0x0000
 ------------- Execute Routine -------------
+
+
+GPR0 = 8 (5 + 3).
