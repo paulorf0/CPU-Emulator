@@ -17,6 +17,7 @@
 // Hardware //
 typedef struct {
   uint8_t memory[MAX_ADDRESS]; // 65536 bytes, 1 word = 1 byte
+  uint8_t ptr;
   uint16_t freq;
 } Memory;
 
@@ -43,28 +44,29 @@ typedef struct {
 // Hardware //
 
 // Initialization //
-static inline CPU* init_cpu(){
-    CPU *cpu = (CPU*)malloc(sizeof(CPU));
-    if (!cpu) {
-        return NULL;
-    }
-    cpu->reg.MBR = 0;
-    cpu->reg.MAR = 0;
-    cpu->reg.IMM = 0;
-    cpu->reg.PC = 0;
-    cpu->reg.IR = 0;
-    cpu->reg.RO0 = 0;
-    cpu->reg.RO1 = 0;
-    cpu->reg.E = 0;
-    cpu->reg.L = 0;
-    cpu->reg.G = 0;
-    cpu->terminate_flag = 0;
-    for (int i = 0; i < 4; i++) {
-        cpu->reg.GPR[i] = 0;
-    }
-    cpu->memory.freq = CPU_CLOCK;
-    cpu->clock = 0;
-    return cpu;
+static inline CPU *init_cpu() {
+  CPU *cpu = (CPU *)malloc(sizeof(CPU));
+  if (!cpu) {
+    return NULL;
+  }
+  cpu->reg.MBR = 0;
+  cpu->reg.MAR = 0;
+  cpu->reg.IMM = 0;
+  cpu->reg.PC = 0;
+  cpu->reg.IR = 0;
+  cpu->reg.RO0 = 0;
+  cpu->reg.RO1 = 0;
+  cpu->reg.E = 0;
+  cpu->reg.L = 0;
+  cpu->reg.G = 0;
+  cpu->terminate_flag = 0;
+  for (int i = 0; i < 4; i++) {
+    cpu->reg.GPR[i] = 0;
+  }
+  cpu->memory.ptr = 0;
+  cpu->memory.freq = CPU_CLOCK;
+  cpu->clock = 0;
+  return cpu;
 }
 // Initialization //
 

@@ -5,6 +5,7 @@
 #include "../assembly/assembly.h"
 #include "../assembly/instruction_code.h"
 #include "../hardware/hardware.h"
+#include "../terminal/terminal.h"
 
 static inline void fetch(CPU *cpu) {
   cpu->reg.MAR = cpu->reg.PC;
@@ -13,15 +14,16 @@ static inline void fetch(CPU *cpu) {
   uint8_t opcode = (cpu->memory.memory[cpu->reg.MAR] >> 3) & 0x1F;
   uint8_t size = get_instruction_size((OPCODE)opcode);
 
-  for (uint8_t i = 0; i < size; i++) {
+  for (uint8_t i = 0; i < size; i++)
     cpu->reg.MBR = ((cpu->reg.MBR << 8) | cpu->memory.memory[cpu->reg.MAR + i]);
-  }
 
   cpu->reg.MBR = cpu->reg.MBR << ((4 - size) << 3);
 
   // The last eight bits are not used.
   cpu->reg.MBR = cpu->reg.MBR & 0xFFFFFF00;
   cpu->reg.PC += size;
+
+  terminal_fetch(cpu);
   return;
 }
 
@@ -78,11 +80,15 @@ static inline void decode(CPU *cpu) {
   default: // The "default" should never be reached
     break;
   }
+
+  terminal_decode(cpu);
 }
 
 static inline void execute(CPU *cpu) {
   InstructionHandler handler = instr_table[cpu->reg.IR];
   handler(cpu);
+
+  terminal_execute(cpu);
 }
 
 #endif

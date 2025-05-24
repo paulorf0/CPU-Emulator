@@ -1,0 +1,108 @@
+
+------------- Memory -------------
+0000: B8
+0001: 00
+0002: 05
+0003: BA
+0004: 00
+0005: 03
+0006: 10
+0007: 80
+0008: 00
+------------- Memory -------------
+
+------------- Fetch Routine -------------
+MBR : 0xB80005	MAR : 0x0000	IMM : 0x0000
+PC  : 0x0003	IR  : 0x00	RO0 : 0x00
+RO1 : 0x00	E   : 0x00	L   : 0x00
+G   : 0x00	GPR0: 0x0000	GPR1: 0x0000
+GPR2: 0x0000	GPR3: 0x0000
+------------- Fetch Routine -------------
+
+------------- Decode Routine -------------
+MBR : 0xB80005	MAR : 0x0000	IMM : 0x0005
+PC  : 0x0003	IR  : 0x17	RO0 : 0x00
+RO1 : 0x00	E   : 0x00	L   : 0x00
+G   : 0x00	GPR0: 0x0000	GPR1: 0x0000
+GPR2: 0x0000	GPR3: 0x0000
+------------- Decode Routine -------------
+
+------------- Execute Routine -------------
+MBR : 0xB80005	MAR : 0x0000	IMM : 0x0005
+PC  : 0x0003	IR  : 0x17	RO0 : 0x00
+RO1 : 0x00	E   : 0x00	L   : 0x00
+G   : 0x00	GPR0: 0x0005	GPR1: 0x0000
+GPR2: 0x0000	GPR3: 0x0000
+------------- Execute Routine -------------
+
+------------- Fetch Routine -------------
+MBR : 0xBA0003	MAR : 0x0003	IMM : 0x0005
+PC  : 0x0006	IR  : 0x17	RO0 : 0x00
+RO1 : 0x00	E   : 0x00	L   : 0x00
+G   : 0x00	GPR0: 0x0005	GPR1: 0x0000
+GPR2: 0x0000	GPR3: 0x0000
+------------- Fetch Routine -------------
+
+------------- Decode Routine -------------
+MBR : 0xBA0003	MAR : 0x0003	IMM : 0x0003
+PC  : 0x0006	IR  : 0x17	RO0 : 0x01
+RO1 : 0x00	E   : 0x00	L   : 0x00
+G   : 0x00	GPR0: 0x0005	GPR1: 0x0000
+GPR2: 0x0000	GPR3: 0x0000
+------------- Decode Routine -------------
+
+------------- Execute Routine -------------
+MBR : 0xBA0003	MAR : 0x0003	IMM : 0x0003
+PC  : 0x0006	IR  : 0x17	RO0 : 0x01
+RO1 : 0x00	E   : 0x00	L   : 0x00
+G   : 0x00	GPR0: 0x0005	GPR1: 0x0003
+GPR2: 0x0000	GPR3: 0x0000
+------------- Execute Routine -------------
+
+------------- Fetch Routine -------------
+MBR : 0x108000	MAR : 0x0006	IMM : 0x0003
+PC  : 0x0008	IR  : 0x17	RO0 : 0x01
+RO1 : 0x00	E   : 0x00	L   : 0x00
+G   : 0x00	GPR0: 0x0005	GPR1: 0x0003
+GPR2: 0x0000	GPR3: 0x0000
+------------- Fetch Routine -------------
+
+------------- Decode Routine -------------
+MBR : 0x108000	MAR : 0x0006	IMM : 0x0003
+PC  : 0x0008	IR  : 0x02	RO0 : 0x00
+RO1 : 0x01	E   : 0x00	L   : 0x00
+G   : 0x00	GPR0: 0x0005	GPR1: 0x0003
+GPR2: 0x0000	GPR3: 0x0000
+------------- Decode Routine -------------
+
+------------- Execute Routine -------------
+MBR : 0x108000	MAR : 0x0006	IMM : 0x0003
+PC  : 0x0008	IR  : 0x02	RO0 : 0x00
+RO1 : 0x01	E   : 0x00	L   : 0x00
+G   : 0x00	GPR0: 0x0008	GPR1: 0x0003
+GPR2: 0x0000	GPR3: 0x0000
+------------- Execute Routine -------------
+
+------------- Fetch Routine -------------
+MBR : 0x000000	MAR : 0x0008	IMM : 0x0003
+PC  : 0x0009	IR  : 0x02	RO0 : 0x00
+RO1 : 0x01	E   : 0x00	L   : 0x00
+G   : 0x00	GPR0: 0x0008	GPR1: 0x0003
+GPR2: 0x0000	GPR3: 0x0000
+------------- Fetch Routine -------------
+
+------------- Decode Routine -------------
+MBR : 0x000000	MAR : 0x0008	IMM : 0x0003
+PC  : 0x0009	IR  : 0x00	RO0 : 0x00
+RO1 : 0x01	E   : 0x00	L   : 0x00
+G   : 0x00	GPR0: 0x0008	GPR1: 0x0003
+GPR2: 0x0000	GPR3: 0x0000
+------------- Decode Routine -------------
+
+------------- Execute Routine -------------
+MBR : 0x000000	MAR : 0x0008	IMM : 0x0003
+PC  : 0x0009	IR  : 0x00	RO0 : 0x00
+RO1 : 0x01	E   : 0x00	L   : 0x00
+G   : 0x00	GPR0: 0x0008	GPR1: 0x0003
+GPR2: 0x0000	GPR3: 0x0000
+------------- Execute Routine -------------

@@ -1,4 +1,5 @@
 #include "../hardware/hardware.h"
+#include "../terminal/terminal.h"
 #include "cycle.h"
 #include <stdint.h>
 #include <stdio.h>
@@ -46,35 +47,23 @@ int main(void) {
 
   // --- HLT ---
   M[8] = 0x00; // 0b00000000 (opcode=00000)
-
+  cpu->memory.ptr = 8;
   // (Opcionalmente, podemos inicializar o restante da memória com 0x00 ou 0xFF,
   // mas não é
   //  necessário para este exemplo de demonstração.)
 
   // 3) Exibe os primeiros bytes para conferirmos (em hex):
-  printf("Memória carregada nos 10 primeiros bytes:\n");
-  for (int i = 0; i < 10; i++) {
-    printf("  M[%02d] = 0x%02X\n", i, M[i]);
-  }
 
   // 4) Opcional: inicializa todos os registradores em zero (já feito pelo
   // init_cpu()),
   //    depois mostra como ficariam r0 e r1 (antes de rodar qualquer coisa).
-  printf("\nAntes da execução:\n");
-  printf("  r0 = %u\n", cpu->reg.GPR[0]);
-  printf("  r1 = %u\n", cpu->reg.GPR[1]);
 
-
-  while(!cpu->terminate_flag){
+  print_memory(cpu);
+  while (!cpu->terminate_flag) {
     fetch(cpu);
     decode(cpu);
     execute(cpu);
   }
-
-  printf("Depois da execução:\n");
-  printf("  r0 = %u\n", cpu->reg.GPR[0]);
-  printf("  r1 = %u\n", cpu->reg.GPR[1]);
-
 
   free(cpu);
   return EXIT_SUCCESS;
