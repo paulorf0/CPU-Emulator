@@ -3,8 +3,8 @@
 #define FETCH_H
 
 #include "../assembly/assembly.h"
-#include "../hardware/hardware.h"
 #include "../assembly/instruction_code.h"
+#include "../hardware/hardware.h"
 
 static inline void fetch(CPU *cpu) {
   cpu->reg.MAR = cpu->reg.PC;
@@ -13,8 +13,11 @@ static inline void fetch(CPU *cpu) {
   uint8_t opcode = (cpu->memory.memory[cpu->reg.MAR] >> 3) & 0x1F;
   uint8_t size = get_instruction_size((OPCODE)opcode);
 
-  for (uint8_t i = 0; i < size; i++)
+  for (uint8_t i = 0; i < size; i++) {
     cpu->reg.MBR = ((cpu->reg.MBR << 8) | cpu->memory.memory[cpu->reg.MAR + i]);
+  }
+
+  cpu->reg.MBR = cpu->reg.MBR << (4 - size)*8 ;
 
   // The last eight bits are not used.
   cpu->reg.MBR = cpu->reg.MBR & 0xFFFFFF00;
@@ -46,7 +49,7 @@ static inline void decode(CPU *cpu) {
     cpu->reg.RO1 = (cpu->reg.MBR >> 23) & 0x03;
     break;
   case NOT:
-    cpu->reg.RO0 = (cpu->reg.MBR >> 26) & 0x03;
+    cpu->reg.RO0 = (cpu->reg.MBR >> 24) & 0x03;
     break;
   case JE:
   case JNE:
@@ -55,12 +58,12 @@ static inline void decode(CPU *cpu) {
   case JG:
   case JGE:
   case JMP:
-    cpu->reg.MAR = (cpu->reg.MBR >> 9) & 0xFFFF; // Maybe this is wrong
+    cpu->reg.MAR = (cpu->reg.MBR >> 8) & 0xFFFF; // Maybe this is wrong
     break;
   case LD:
   case ST:
-    cpu->reg.MAR = (cpu->reg.MBR >> 9) & 0xFFFF;
-    cpu->reg.RO0 = (cpu->reg.MBR >> 26) & 0x03;
+    cpu->reg.MAR = (cpu->reg.MBR >> 8) & 0xFFFF;
+    cpu->reg.RO0 = (cpu->reg.MBR >> 25) & 0x03;
     break;
   case MOVI:
   case ADDI:
@@ -69,8 +72,8 @@ static inline void decode(CPU *cpu) {
   case DIVI:
   case LSH:
   case RSH:
-    cpu->reg.IMM = (cpu->reg.MBR >> 9) & 0xFFFF;
-    cpu->reg.RO0 = (cpu->reg.MBR >> 26) & 0x03;
+    cpu->reg.IMM = (cpu->reg.MBR >> 8) & 0xFFFF;
+    cpu->reg.RO0 = (cpu->reg.MBR >> 25) & 0x03;
     break;
   default: // The "default" should never be reached
     break;

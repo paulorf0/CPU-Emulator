@@ -1,5 +1,5 @@
 #include "handlers.h"
-
+#include <stdio.h>
 void handle_HLT(CPU *cpu) {
     cpu->terminate_flag = 1;
     return;
@@ -109,7 +109,6 @@ void handle_LDR(CPU *cpu) { return; } // LOAD VIA REGISTER
 void handle_STR(CPU *cpu) { return; } // STORE VIA REGISTER
 void handle_MOVI(CPU *cpu) {
   uint8_t addr1 = cpu->reg.RO0;
-
   cpu->reg.GPR[addr1] = cpu->reg.IMM;
   return;
 } // MOVE IMMEDIATE
