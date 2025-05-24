@@ -1,5 +1,4 @@
 #include "handlers.h"
-#include <stdio.h>
 void handle_HLT(CPU *cpu) {
     cpu->terminate_flag = 1;
     return;

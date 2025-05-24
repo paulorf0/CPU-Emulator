@@ -17,7 +17,7 @@ static inline void fetch(CPU *cpu) {
     cpu->reg.MBR = ((cpu->reg.MBR << 8) | cpu->memory.memory[cpu->reg.MAR + i]);
   }
 
-  cpu->reg.MBR = cpu->reg.MBR << (4 - size)*8 ;
+  cpu->reg.MBR = cpu->reg.MBR << ((4 - size) << 3);
 
   // The last eight bits are not used.
   cpu->reg.MBR = cpu->reg.MBR & 0xFFFFFF00;
