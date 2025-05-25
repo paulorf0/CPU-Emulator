@@ -22,14 +22,14 @@ static inline void fetch(CPU *cpu) {
   // The last eight bits are not used.
   cpu->reg.MBR = cpu->reg.MBR & 0xFFFFFF00;
   cpu->reg.PC += size;
-
+  cpu->reg.IR = OPCODE5(cpu->reg.MBR);
+  printf("OPCODE = %x\n", cpu->reg.IR);
   terminal_fetch(cpu);
   return;
 }
 
 static inline void decode(CPU *cpu) {
   // OpCode instruction
-  cpu->reg.IR = OPCODE5(cpu->reg.MBR);
   switch (cpu->reg.IR) {
   case HLT:
   case NOP:

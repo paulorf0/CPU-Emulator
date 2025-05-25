@@ -96,13 +96,46 @@ void handle_NOT(CPU *cpu) {
   cpu->reg.GPR[addr1] = !cpu->reg.GPR[addr1];
   return;
 } // LOGICAL-NOT ON REGISTER
-void handle_JE(CPU *cpu) { return; }  // JUMP IF EQUAL TO
-void handle_JNE(CPU *cpu) { return; } // JUMP IF NOT EQUAL TO
-void handle_JL(CPU *cpu) { return; }  // JUMP IF LOWER THAN
-void handle_JLE(CPU *cpu) { return; } // JUMP IF LOWER OR EQUAL
-void handle_JG(CPU *cpu) { return; }  // JUMP IF GREATER THAN
-void handle_JGE(CPU *cpu) { return; } // JUMP IF GREATER OR EQUAL
-void handle_JMP(CPU *cpu) { return; } // JUMP
+void handle_JE(CPU *cpu) {
+  if (cpu->reg.E == 1)
+    cpu->reg.PC = cpu->reg.MAR;
+
+  return;
+} // JUMP IF EQUAL TO
+void handle_JNE(CPU *cpu) {
+  if (cpu->reg.E == 0)
+    cpu->reg.PC = cpu->reg.MAR;
+
+  return;
+} // JUMP IF NOT EQUAL TO
+void handle_JL(CPU *cpu) {
+  if (cpu->reg.L == 1 && cpu->reg.E == 0)
+    cpu->reg.PC = cpu->reg.MAR;
+
+  return;
+} // JUMP IF LOWER THAN
+void handle_JLE(CPU *cpu) {
+  if (cpu->reg.L == 1 || cpu->reg.E == 1)
+    cpu->reg.PC = cpu->reg.MAR;
+
+  return;
+} // JUMP IF LOWER OR EQUAL
+void handle_JG(CPU *cpu) {
+  if (cpu->reg.G == 1 && cpu->reg.E == 0)
+    cpu->reg.PC = cpu->reg.MAR;
+
+  return;
+} // JUMP IF GREATER THAN
+void handle_JGE(CPU *cpu) {
+  if (cpu->reg.G == 1 || cpu->reg.E == 1)
+    cpu->reg.PC = cpu->reg.MAR;
+  return;
+} // JUMP IF GREATER OR EQUAL
+void handle_JMP(CPU *cpu) {
+  cpu->reg.PC = cpu->reg.MAR;
+  return;
+} // JUMP
+
 void handle_LD(CPU *cpu) { return; }  // LOAD
 void handle_ST(CPU *cpu) { return; }  // STORE
 void handle_LDR(CPU *cpu) { return; } // LOAD VIA REGISTER

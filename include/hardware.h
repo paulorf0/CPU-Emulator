@@ -11,14 +11,12 @@
 #include <stdlib.h>
 
 #define MAX_ADDRESS 65536   // 2^16 = 65536
-#define CPU_CLOCK 3         // 3 GHz = 3 * 2^30 ciclos / s
-#define MEM_DELAY_CLOCK 150 // 150 clocks de delay
+
 
 // Hardware //
 typedef struct {
   uint8_t memory[MAX_ADDRESS]; // 65536 bytes, 1 word = 1 byte
   uint8_t ptr;
-  uint16_t freq;
 } Memory;
 
 typedef struct {
@@ -38,7 +36,6 @@ typedef struct {
 typedef struct {
   Reg reg;
   Memory memory;
-  uint32_t clock;
   uint8_t terminate_flag;
 } CPU;
 // Hardware //
@@ -64,8 +61,6 @@ static inline CPU *init_cpu() {
     cpu->reg.GPR[i] = 0;
   }
   cpu->memory.ptr = 0;
-  cpu->memory.freq = CPU_CLOCK;
-  cpu->clock = 0;
   return cpu;
 }
 // Initialization //
